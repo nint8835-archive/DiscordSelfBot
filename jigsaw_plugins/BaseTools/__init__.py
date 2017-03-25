@@ -32,7 +32,7 @@ class BaseTools(UserCorePlugin):
     async def command_eval(self, args: dict):
         code = args["unsplit_args"].split("eval ")[1]
         try:
-            result = eval(code)
+            result = str(eval(code))
             colour = Colour.green()
         except:
             result = f"```py\n{traceback.format_exc(1)}```"
