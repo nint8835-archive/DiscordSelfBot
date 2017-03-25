@@ -1,5 +1,6 @@
 import logging
 
+from NintbotForDiscord import Bot
 from NintbotForDiscord.Enums import EventTypes
 from NintbotForDiscord.Permissions import Permission
 from jigsaw import JigsawPlugin
