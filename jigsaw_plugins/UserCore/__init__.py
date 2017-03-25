@@ -2,7 +2,7 @@ from NintbotForDiscord.Permissions.Special import Owner
 from plugins.JigsawLoader import NintbotPlugin
 
 
-class UserCore(NintbotPlugin):
+class UserCorePlugin(NintbotPlugin):
 
     def __init__(self, manifest, bot_instance):
         super().__init__(manifest, bot_instance)
@@ -21,6 +21,8 @@ class UserCore(NintbotPlugin):
     def register_command(self, *args, **kwargs):
         self.register_user_command(*args, **kwargs)
 
+
+class UserCore(NintbotPlugin):
     def enable(self) -> None:
         super().enable()
         self.logger.debug(f"UserCore v{self.manifest.get('version', 'UNKNOWN')} available for use.")
