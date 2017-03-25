@@ -70,8 +70,8 @@ class Bot(discord.Client):
         Passes incoming messages to the EventManager
         :param message: The incoming message
         """
-        await self.log_message(message)
         if message.channel.is_private or message.server.id not in self.config["blacklisted_servers"]:
+            await self.log_message(message)
             await self.EventManager.dispatch_event(EventTypes.MESSAGE_SENT,
                                                    message=message,
                                                    author=message.author,
