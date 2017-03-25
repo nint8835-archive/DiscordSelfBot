@@ -33,7 +33,7 @@ class EventTypes(Enum):
     MEMBER_BANNED              = "member_banned"
     MEMBER_UNBANNED            = "member_unbanned"
     MEMBER_VOICE_STATE_UPDATED = "member_voice_state_updated"
-    MEMBER_TYPING            = "member_typing"
+    MEMBER_TYPING              = "member_typing"
 
     # Servers
     SERVER_JOINED       = "server_joined"

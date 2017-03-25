@@ -14,18 +14,10 @@ class BasePlugin(JigsawPlugin):
 
         self.bot = bot_instance  # type: Bot.Bot
 
-        self.plugin_info = {
-            "plugin_name": self.manifest.get("name", "Unnamed Plugin"),
-            "plugin_developer": self.manifest.get("developer", "Unspecified Developer"),
-            "plugin_version": self.manifest.get("version", "0.0.0"),
-            "module_name": self.manifest.get("module_name", self.manifest.get("name", "Unnamed Plugin")),
-            "main_file": self.manifest.get("main_path", "__init__.py")
-        }
-
         self._registered_commands = []
         self._registered_handlers = []
 
-        self.logger = logging.getLogger(self.plugin_info["plugin_name"])
+        self.logger = logging.getLogger(self.manifest["name"])
 
     def register_command(self, name: str, description: str, method: classmethod, permission: Permission = Permission()) -> None:
         """
@@ -39,7 +31,7 @@ class BasePlugin(JigsawPlugin):
             "command": name,
             "description": description,
             "required_perm": permission,
-            "plugin_info": self.plugin_info,
+            "plugin": self,
             "command_handler": method
         })
 

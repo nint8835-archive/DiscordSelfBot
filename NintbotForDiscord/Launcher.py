@@ -1,9 +1,9 @@
+import io
 import json
 import os
-import traceback
 
 from .Bot import Bot
-import io
+
 __author__ = 'Riley Flynn (nint8835)'
 
 

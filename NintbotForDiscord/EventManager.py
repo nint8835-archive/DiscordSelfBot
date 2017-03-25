@@ -12,7 +12,7 @@ class EventManager:
         self._handlers = []
         self._bot = bot_instance
         self.loop = asyncio.get_event_loop()
-        self.queue = asyncio.Queue(loop = self.loop)
+        self.queue = asyncio.Queue(loop=self.loop)
         self.loop.create_task(self.event_handle_loop())
 
     async def event_handle_loop(self):
@@ -23,11 +23,11 @@ class EventManager:
             handler = await self.queue.get()
             self._bot.logger.debug("{} items in event queue.".format(self.queue.qsize()))
             try:
-                await asyncio.wait_for(handler["handler"](handler["args"]), timeout = self._bot.config["event_timeout"],
+                await asyncio.wait_for(handler["handler"](handler["args"]), timeout=self._bot.config["event_timeout"],
                                        loop = self.loop)
             except asyncio.TimeoutError:
                 self._bot.logger.warning("Handling of {} event from plugin {} timed out.".format(handler["type"],
-                                                                                                 handler["plugin"].plugin_data["plugin_name"]))
+                                                                                                 handler["plugin"].manifest["name"]))
 
     def register_handler(self, event_type: EventTypes, event_handler, plugin: BasePlugin):
         """
