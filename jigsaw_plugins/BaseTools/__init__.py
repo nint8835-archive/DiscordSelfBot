@@ -3,7 +3,7 @@ import sys
 import traceback
 from io import StringIO
 
-from discord import Colour, Embed
+from discord import Colour, Embed, Game
 
 from jigsaw_plugins.UserCore import UserCorePlugin
 
@@ -27,6 +27,7 @@ class BaseTools(UserCorePlugin):
 
         self.register_user_command("eval", "Evaluates given code", self.command_eval)
         self.register_user_command("exec", "Executes given code", self.command_exec)
+        self.register_user_command("setgame", "Sets the currently played code", self.command_setgame)
 
     async def command_eval(self, args: dict):
         code = args["unsplit_args"].split("eval ")[1]
@@ -63,3 +64,7 @@ class BaseTools(UserCorePlugin):
         embed.colour = colour
 
         await self.bot.send_message(args["channel"], embed=embed)
+
+    async def command_setgame(self, args: dict):
+        game = args["unsplit_args"].split("setgame ")[1]
+        await self.bot.change_presence(game=Game(name=game))
