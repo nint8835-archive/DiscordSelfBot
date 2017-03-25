@@ -1,0 +1,9 @@
+{
+  "name": "Base Tools",
+  "version": "1.0.0",
+  "main_class": "BaseTools",
+  "developer": "nint8835",
+  "dependencies": [
+    "UserCore"
+  ]
+}
