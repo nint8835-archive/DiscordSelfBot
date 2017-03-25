@@ -47,3 +47,22 @@ class BasePlugin(JigsawPlugin):
             "event_handler": event_handler,
             "plugin": self
         })
+
+    def enable(self) -> None:
+        self.logger.debug("Registering commands...")
+        for command in self._registered_commands:
+            self.bot.CommandRegistry.register_command(**command)
+        self.logger.debug("Commands registered.")
+
+        self.logger.debug("Registering handlers...")
+        for handler in self._registered_handlers:
+            self.bot.EventManager.register_handler(**handler)
+        self.logger.debug("Handlers registered.")
+
+    def disable(self) -> None:
+        self.logger.debug("Unregistering commands...")
+        self.bot.CommandRegistry.unregister_all_commands_for_plugin(self)
+        self.logger.debug("Commands unregistered.")
+
+        self.logger.debug("Unregistering handlers...")
+        self.bot.EventManager.remove_handlers(self)
