@@ -16,7 +16,7 @@ class UserCorePlugin(NintbotPlugin):
 
     def register_user_command(self, name: str, description: str, method: classmethod, *args, **kwargs):
         self._internal_handlers[name] = method
-        NintbotPlugin.register_command(self, name, description, method, Owner(self.bot))
+        NintbotPlugin.register_command(self, name, description, self.command_handler, Owner(self.bot))
 
     def register_command(self, *args, **kwargs):
         self.register_user_command(*args, **kwargs)

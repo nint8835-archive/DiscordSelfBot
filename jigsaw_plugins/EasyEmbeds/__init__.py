@@ -1,5 +1,27 @@
+import json
+
+from discord import Embed, Colour
+
 from jigsaw_plugins.UserCore import UserCorePlugin
 
 
 class EasyEmbeds(UserCorePlugin):
-    pass
+
+    def __init__(self, manifest, bot_instance):
+        super().__init__(manifest, bot_instance)
+
+        self.register_user_command("jsonembed", "Creates an embed out of a json object", self.command_jsonembed)
+
+    async def command_jsonembed(self, args: dict):
+        obj = json.loads(args["unsplit_args"].split("jsonembed ")[1])
+
+        embed = Embed()
+
+        for key in obj:
+            if key == "colour":
+                continue
+            embed.add_field(name=key, value=obj[key])
+
+        embed.colour = Colour(int(obj.get("colour", "673AB7"), 16))
+
+        await self.bot.send_message(args["channel"], embed=embed)
