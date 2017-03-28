@@ -1,8 +1,9 @@
 import traceback
+import asyncio
 
 from .Enums import EventTypes
 from .Plugin import BasePlugin
-import asyncio
+from .Events import classes
 __author__ = 'Riley Flynn (nint8835)'
 
 
@@ -24,7 +25,7 @@ class EventManager:
             self._bot.logger.debug("{} items in event queue.".format(self.queue.qsize()))
             try:
                 await asyncio.wait_for(handler["handler"](handler["args"]), timeout=self._bot.config["event_timeout"],
-                                       loop = self.loop)
+                                       loop=self.loop)
             except asyncio.TimeoutError:
                 self._bot.logger.warning("Handling of {} event from plugin {} timed out.".format(handler["type"],
                                                                                                  handler["plugin"].manifest["name"]))
@@ -47,6 +48,8 @@ class EventManager:
         new_args = kwargs
         new_args["bot"] = self._bot
         new_args["event_type"] = event_type
+        if event_type in classes:
+            new_args = classes[event_type].from_dict(new_args)
         for handler in self._handlers:
             if handler["type"] == event_type:
                 # noinspection PyBroadException

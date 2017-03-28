@@ -1,1 +1,0 @@
-D:/Development/Nintbot-Discord/plugins/JigsawLoader/__init__.py

@@ -78,13 +78,12 @@ class CommandRegistry:
         """
         self.logger.debug("Handling command {}.".format(command_name))
         for command in self._commands:
-            if command["command"] == command_name:
-                if command["handler"] is not None:
-                    if command["required_permission"].has_permission(args["author"]):
-                        try:
-                            await asyncio.wait_for(command["handler"](args),
-                                                   timeout=self.bot.config["event_timeout"],
-                                                   loop=self.bot.EventManager.loop)
-                        except asyncio.TimeoutError:
-                            self.bot.logger.warning("Handling of {} command from plugin {} timed out.".format(command,
-                                                                                                              command["plugin"].manifest["name"]))
+            if command["command"] == command_name and command["handler"] is not None:
+                if command["required_permission"].has_permission(args["author"]):
+                    try:
+                        await asyncio.wait_for(command["handler"](args),
+                                               timeout=self.bot.config["event_timeout"],
+                                               loop=self.bot.EventManager.loop)
+                    except asyncio.TimeoutError:
+                        self.bot.logger.warning("Handling of {} command from plugin {} timed out.".format(command,
+                                                                                                          command["plugin"].manifest["name"]))

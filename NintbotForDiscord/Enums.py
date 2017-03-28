@@ -5,6 +5,8 @@ __author__ = 'Riley Flynn (nint8835)'
 class EventTypes(Enum):
     """An enum containing all of the event types event handlers can be registered for"""
 
+    GENERIC = "generic"
+
     # Messages - Sent
     CHANNEL_MESSAGE_SENT = "channel_message"
     PRIVATE_MESSAGE_SENT = "private_message"
