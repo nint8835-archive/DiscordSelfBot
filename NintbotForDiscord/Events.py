@@ -130,7 +130,7 @@ class MessageEditedEvent(Event):
 
     @staticmethod
     def from_dict(args: dict) -> "MessageEditedEvent":
-        return MessageEditedEvent(args["before"], args["after"], args["author"], args["channel"])
+        return MessageEditedEvent(args["message_before"], args["message_after"], args["author"], args["channel"])
 
 
 class ChannelMessageEditedEvent(MessageEditedEvent):
@@ -149,7 +149,7 @@ class ChannelMessageEditedEvent(MessageEditedEvent):
 
     @staticmethod
     def from_dict(args: dict) -> "ChannelMessageEditedEvent":
-        return ChannelMessageEditedEvent(args["before"], args["after"], args["author"], args["channel"])
+        return ChannelMessageEditedEvent(args["message_before"], args["message_after"], args["author"], args["channel"])
 
 
 class PrivateMessageEditedEvent(MessageEditedEvent):
@@ -167,7 +167,7 @@ class PrivateMessageEditedEvent(MessageEditedEvent):
 
     @staticmethod
     def from_dict(args: dict) -> "PrivateMessageEditedEvent":
-        return PrivateMessageEditedEvent(args["before"], args["after"], args["author"], args["channel"])
+        return PrivateMessageEditedEvent(args["message_before"], args["message_after"], args["author"], args["channel"])
 
 
 class CommandSentEvent(Event):

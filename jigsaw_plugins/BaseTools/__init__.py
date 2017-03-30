@@ -1,10 +1,12 @@
 import contextlib
+import datetime
 import sys
 import traceback
 from io import StringIO
 
 from discord import Colour, Embed, Game
 
+from NintbotForDiscord.Events import CommandSentEvent
 from jigsaw_plugins.UserCore import UserCorePlugin
 
 
@@ -28,6 +30,7 @@ class BaseTools(UserCorePlugin):
         self.register_user_command("eval", "Evaluates given code", self.command_eval)
         self.register_user_command("exec", "Executes given code", self.command_exec)
         self.register_user_command("setgame", "Sets the currently played code", self.command_setgame)
+        self.register_modern_command("^ping$", "Tests the response time for command handling", self.command_ping)
 
     async def command_eval(self, args: dict):
         code = args["unsplit_args"].split("eval ")[1]
@@ -68,3 +71,8 @@ class BaseTools(UserCorePlugin):
     async def command_setgame(self, args: dict):
         game = args["unsplit_args"].split("setgame ")[1]
         await self.bot.change_presence(game=Game(name=game))
+
+    async def command_ping(self, args: CommandSentEvent):
+        time_diff = datetime.datetime.utcnow().timestamp() - args.message.timestamp.timestamp()
+
+        await self.bot.send_message(args.channel, f"Pong! I processed this command {time_diff} seconds after it was sent!")
