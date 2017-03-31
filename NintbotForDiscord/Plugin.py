@@ -16,6 +16,7 @@ class BasePlugin(JigsawPlugin):
         self.bot = bot_instance  # type: Bot.Bot
 
         self._registered_commands = []
+        self._registered_modern_commands = []
         self._registered_handlers = []
 
         self.logger = logging.getLogger(self.manifest["name"])
@@ -48,10 +49,21 @@ class BasePlugin(JigsawPlugin):
             "plugin": self
         })
 
+    def register_modern_command(self, command: str, description: str, method: classmethod, permission: Permission = Permission()):
+        self._registered_modern_commands.append({
+            "command": command,
+            "description": description,
+            "required_perm": permission,
+            "plugin": self,
+            "command_handler": method
+        })
+
     def enable(self) -> None:
         self.logger.debug("Registering commands...")
         for command in self._registered_commands:
             self.bot.CommandRegistry.register_command(**command)
+        for command in self._registered_modern_commands:
+            self.bot.CommandRegistry.register_modern_command(**command)
         self.logger.debug("Commands registered.")
 
         self.logger.debug("Registering handlers...")
@@ -66,3 +78,4 @@ class BasePlugin(JigsawPlugin):
 
         self.logger.debug("Unregistering handlers...")
         self.bot.EventManager.remove_handlers(self)
+
