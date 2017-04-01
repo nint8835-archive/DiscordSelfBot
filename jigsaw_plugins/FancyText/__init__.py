@@ -8,7 +8,7 @@ class FancyText(UserCorePlugin):
     def __init__(self, manifest, bot_instance):
         super().__init__(manifest, bot_instance)
 
-        self.register_modern_command("^fancy ([A-Za-z0-9 ]+)$", "Prints text in a fancy way", self.command_fancy)
+        self.register_modern_command("^fancy ([^~]+)$", "Prints text in a fancy way", self.command_fancy)
         self.register_modern_command("^fancy ([\\S ]+) ~([\\S]+)$", "Prints text in a fancy way with a custom font", self.command_customfancy)
         self.figlet = Figlet()
 
