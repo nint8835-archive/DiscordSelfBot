@@ -1,8 +1,8 @@
 import logging
 
-from NintbotForDiscord import Bot
-from NintbotForDiscord.Enums import EventTypes
-from NintbotForDiscord.Permissions import Permission
+from . import Bot
+from .Enums import EventTypes
+from .Permissions import Permission
 from jigsaw import JigsawPlugin
 
 __author__ = 'Riley Flynn (nint8835)'

@@ -2,7 +2,7 @@ from typing import Union, Tuple
 
 import discord
 
-from NintbotForDiscord.Enums import EventTypes
+from .Enums import EventTypes
 
 DiscordUser = Union[discord.User, discord.Member]
 DiscordChannel = Union[discord.Channel, discord.PrivateChannel]

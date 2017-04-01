@@ -3,8 +3,8 @@ import time
 import discord
 from discord.utils import find
 
-from NintbotForDiscord import Bot
-from NintbotForDiscord.Plugin import BasePlugin
+from . import Bot
+from .Plugin import BasePlugin
 from . import Scheduler
 
 __author__ = 'Riley Flynn (nint8835)'

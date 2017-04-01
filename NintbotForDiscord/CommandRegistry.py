@@ -5,8 +5,8 @@ import re
 import discord
 from typing import Callable, Union
 
-from NintbotForDiscord.Events import CommandSentEvent
-from NintbotForDiscord.Plugin import BasePlugin
+from .Events import CommandSentEvent
+from .Plugin import BasePlugin
 from .Permissions import Permission
 
 __author__ = 'Riley Flynn (nint8835)'

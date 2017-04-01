@@ -1,7 +1,7 @@
 import asyncio
 
-from NintbotForDiscord.Plugin import BasePlugin
-from NintbotForDiscord.ScheduledTask import ScheduledTask
+from .Plugin import BasePlugin
+from .ScheduledTask import ScheduledTask
 
 __author__ = 'Riley Flynn (nint8835)'
 
