@@ -1,3 +1,5 @@
+import traceback
+
 from NintbotForDiscord.Events import CommandSentEvent
 from NintbotForDiscord.Permissions.Special import Owner
 from NintbotForDiscord.Plugin import BasePlugin
@@ -11,7 +13,10 @@ class UserCorePlugin(BasePlugin):
         self._internal_handlers = {}
 
     async def command_handler(self, args: CommandSentEvent):
-        await self._internal_handlers[args.command](args)
+        try:
+            await self._internal_handlers[args.command](args)
+        except:
+            traceback.print_exc(5)
 
         await self.bot.delete_message(args["message"])
 
