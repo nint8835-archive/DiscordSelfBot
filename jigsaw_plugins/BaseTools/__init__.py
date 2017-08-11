@@ -33,7 +33,7 @@ class BaseTools(UserCorePlugin):
         self.register_modern_command("^ping$", "Tests the response time for command handling", self.command_ping)
 
     async def command_eval(self, args: dict):
-        code = args["content"].split(self.bot.config["command_prefix"]+"eval ")[1]
+        code = args["content"].split(self.bot.config["command_prefix"] + "eval ")[1]
         try:
             result = str(eval(code))
             colour = Colour.green()
@@ -50,7 +50,7 @@ class BaseTools(UserCorePlugin):
         await self.bot.send_message(args["channel"], embed=embed)
 
     async def command_exec(self, args: dict):
-        code = args["content"].split(self.bot.config["command_prefix"]+"exec ")[1]
+        code = args["content"].split(self.bot.config["command_prefix"] + "exec ")[1]
         with stdioreader() as (out, err):  # type: StringIO
             try:
                 exec(code)

@@ -12,10 +12,11 @@ class PluginManager:
 
     def __init__(self, bot):
         self.bot = bot  # type: Bot.Bot
-        self._jigsaw = jigsaw.PluginLoader(plugin_paths=(
-            os.path.abspath(os.path.join(__file__, os.pardir, os.pardir, "plugins")),
-            os.path.abspath(os.path.join(__file__, os.pardir, os.pardir, "jigsaw_plugins"))
-        ))
+        paths = self.bot.config.get("plugin_paths", ["plugins"])
+        for path in paths:
+            if not os.path.isdir(path):
+                os.mkdir(path)
+        self._jigsaw = jigsaw.PluginLoader(plugin_paths=tuple(paths))
 
     def load_plugins(self):
         self._jigsaw.load_manifests()
