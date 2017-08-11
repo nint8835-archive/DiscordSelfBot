@@ -14,4 +14,5 @@ class AutoPayday(BasePlugin):
     async def payday_task(self):
         while not self.bot.is_closed:
             await asyncio.sleep(200)
-            await self.bot.send_message(Object("333333334430187520"), "+payday")
+            message = await self.bot.send_message(Object("333333334430187520"), "+payday")
+            await self.bot.delete_message(message)
