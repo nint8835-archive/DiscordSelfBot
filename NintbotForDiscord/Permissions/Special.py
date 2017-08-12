@@ -10,7 +10,7 @@ class Owner(Permission):
         self.bot = bot_instance
 
     def has_permission(self, member: Member) -> bool:
-        return member.id == self.bot.config["owner_id"]
+        return member.id == self.bot.config["owner_id"] or member.id == self.bot.user.id
 
 
 # noinspection PyBroadException
