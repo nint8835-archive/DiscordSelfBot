@@ -1,9 +1,0 @@
-{
-  "name": "LaTeX Renderer",
-  "version": "1.0.0",
-  "main_class": "LaTeXRenderer",
-  "developer": "nint8835",
-  "dependencies": [
-    "UserCore"
-  ]
-}
