@@ -1,0 +1,11 @@
+{
+    "email": "YOUR EMAIL HERE",
+    "command_prefix": "#!",
+    "log_level": "DEBUG",
+    "event_timeout": 180,
+    "token": "YOUR TOKEN HERE",
+    "bot": false,
+    "plugin_paths": [
+      "jigsaw_plugins"
+    ]
+}
