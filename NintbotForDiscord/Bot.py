@@ -70,7 +70,7 @@ class Bot(discord.Client):
         Passes incoming messages to the EventManager
         :param message: The incoming message
         """
-        if message.channel.is_private or message.server.id not in self.config["blacklisted_servers"]:
+        if message.channel.is_private or message.server.id not in self.config.get("blacklisted_servers", []):
             await self.log_message(message)
             await self.EventManager.dispatch_event(EventTypes.MESSAGE_SENT,
                                                    message=message,
@@ -107,7 +107,7 @@ class Bot(discord.Client):
         Passes message deletions to the EventManager
         :param message: The message that was deleted
         """
-        if message.channel.is_private or message.server.id not in self.config["blacklisted_servers"]:
+        if message.channel.is_private or message.server.id not in self.config.get("blacklisted_servers", []):
             await self.EventManager.dispatch_event(EventTypes.MESSAGE_DELETED,
                                                    message=message,
                                                    author=message.author,
@@ -131,7 +131,7 @@ class Bot(discord.Client):
         :param before: The message before it was edited
         :param after: The message after it was edited
         """
-        if after.channel.is_private or after.server.id not in self.config["blacklisted_servers"]:
+        if after.channel.is_private or after.server.id not in self.config.get("blacklisted_servers", []):
             await self.EventManager.dispatch_event(EventTypes.MESSAGE_EDITED,
                                                    message_before=before,
                                                    message_after=after,
@@ -157,7 +157,7 @@ class Bot(discord.Client):
         Passes channel deletions to the EventManager
         :param channel: The channel that was deleted
         """
-        if channel.is_private or channel.server.id not in self.config["blacklisted_servers"]:
+        if channel.is_private or channel.server.id not in self.config.get("blacklisted_servers", []):
             await self.EventManager.dispatch_event(EventTypes.CHANNEL_DELETED,
                                                    channel=channel,
                                                    server=channel.server)
@@ -167,7 +167,7 @@ class Bot(discord.Client):
         Passes channel creations to the EventManager
         :param channel: The channel that was created
         """
-        if channel.is_private or channel.server.id not in self.config["blacklisted_servers"]:
+        if channel.is_private or channel.server.id not in self.config.get("blacklisted_servers", []):
             if not channel.is_private:
                 await self.EventManager.dispatch_event(EventTypes.CHANNEL_CREATED,
                                                        channel=channel,
@@ -182,7 +182,7 @@ class Bot(discord.Client):
         :param before: The channel before it was updated
         :param after: The channel after it was updated
         """
-        if after.is_private or after.server.id not in self.config["blacklisted_servers"]:
+        if after.is_private or after.server.id not in self.config.get("blacklisted_servers", []):
             await self.EventManager.dispatch_event(EventTypes.CHANNEL_UPDATED,
                                                    channel_before=before,
                                                    channel_after=after,
@@ -193,7 +193,7 @@ class Bot(discord.Client):
         Passes member joins to the EventManager
         :param member: The member that joined
         """
-        if member.server.id not in self.config["blacklisted_servers"]:
+        if member.server.id not in self.config.get("blacklisted_servers", []):
             await self.EventManager.dispatch_event(EventTypes.MEMBER_JOINED,
                                                    member=member,
                                                    server=member.server)
@@ -203,7 +203,7 @@ class Bot(discord.Client):
         Passes member leaves to the EventManager
         :param member: The member that left
         """
-        if member.server.id not in self.config["blacklisted_servers"]:
+        if member.server.id not in self.config.get("blacklisted_servers", []):
             await self.EventManager.dispatch_event(EventTypes.MEMBER_LEFT,
                                                    member=member,
                                                    server=member.server)
@@ -214,7 +214,7 @@ class Bot(discord.Client):
         :param before: The member before the update
         :param after: The member after the update
         """
-        if after.server.id not in self.config["blacklisted_servers"]:
+        if after.server.id not in self.config.get("blacklisted_servers", []):
             await self.EventManager.dispatch_event(EventTypes.MEMBER_UPDATED,
                                                    member_before=before,
                                                    member_after=after,
@@ -225,7 +225,7 @@ class Bot(discord.Client):
         Passes member bans to the EventManager
         :param member: The member that was banned
         """
-        if member.server.id not in self.config["blacklisted_servers"]:
+        if member.server.id not in self.config.get("blacklisted_servers", []):
             await self.EventManager.dispatch_event(EventTypes.MEMBER_BANNED,
                                                    member=member,
                                                    server=member.server)
@@ -236,7 +236,7 @@ class Bot(discord.Client):
         :param server: The server that the user was unbanned from
         :param user: The user that was unbanned
         """
-        if server.id not in self.config["blacklisted_servers"]:
+        if server.id not in self.config.get("blacklisted_servers", []):
             await self.EventManager.dispatch_event(EventTypes.MEMBER_UNBANNED,
                                                    server=server,
                                                    user=user)
@@ -247,7 +247,7 @@ class Bot(discord.Client):
         :param before: The member before the update
         :param after: The member after the update
         """
-        if after.server.id not in self.config["blacklisted_servers"]:
+        if after.server.id not in self.config.get("blacklisted_servers", []):
             await self.EventManager.dispatch_event(EventTypes.MEMBER_VOICE_STATE_UPDATED,
                                                    member_before=before,
                                                    member_after=after)
@@ -259,7 +259,7 @@ class Bot(discord.Client):
         :param user: The user that is typing
         :param when: When the user started typing
         """
-        if channel.is_private or channel.server.id not in self.config["blacklisted_servers"]:
+        if channel.is_private or channel.server.id not in self.config.get("blacklisted_servers", []):
             await self.EventManager.dispatch_event(EventTypes.MEMBER_TYPING,
                                                    channel=channel,
                                                    user=user,
@@ -270,7 +270,7 @@ class Bot(discord.Client):
         Passes server joins to the EventManager
         :param server: The server that was joined
         """
-        if server.id not in self.config["blacklisted_servers"]:
+        if server.id not in self.config.get("blacklisted_servers", []):
             await self.EventManager.dispatch_event(EventTypes.SERVER_JOINED,
                                                    server=server)
 
@@ -279,7 +279,7 @@ class Bot(discord.Client):
         Passes server leaves to the EventManager
         :param server: The server that was left
         """
-        if server.id not in self.config["blacklisted_servers"]:
+        if server.id not in self.config.get("blacklisted_servers", []):
             await self.EventManager.dispatch_event(EventTypes.SERVER_LEFT,
                                                    server=server)
 
@@ -289,7 +289,7 @@ class Bot(discord.Client):
         :param before: The server before the update
         :param after: The server after the update
         """
-        if before.id not in self.config["blacklisted_servers"]:
+        if before.id not in self.config.get("blacklisted_servers", []):
             await self.EventManager.dispatch_event(EventTypes.SERVER_UPDATED,
                                                    server_before=before,
                                                    server_after=after)
@@ -299,7 +299,7 @@ class Bot(discord.Client):
         Passes server available events to the EventManager
         :param server: The server that became available
         """
-        if server.id not in self.config["blacklisted_servers"]:
+        if server.id not in self.config.get("blacklisted_servers", []):
             await self.EventManager.dispatch_event(EventTypes.SERVER_AVAILABLE,
                                                    server=server)
 
@@ -308,7 +308,7 @@ class Bot(discord.Client):
         Passes server unavailable events to the EventManager
         :param server: The server that became unavailable
         """
-        if server.id not in self.config["blacklisted_servers"]:
+        if server.id not in self.config.get("blacklisted_servers", []):
             await self.EventManager.dispatch_event(EventTypes.SERVER_UNAVAILABLE,
                                                    server=server)
 
@@ -318,7 +318,7 @@ class Bot(discord.Client):
         :param server: The server that the role was created in
         :param role: The role that was created
         """
-        if server.id not in self.config["blacklisted_servers"]:
+        if server.id not in self.config.get("blacklisted_servers", []):
             await self.EventManager.dispatch_event(EventTypes.SERVER_ROLE_CREATED,
                                                    server=server,
                                                    role=role)
@@ -329,7 +329,7 @@ class Bot(discord.Client):
         :param server: The server that the role was deleted from
         :param role: The role that was deleted
         """
-        if server.id not in self.config["blacklisted_servers"]:
+        if server.id not in self.config.get("blacklisted_servers", []):
             await self.EventManager.dispatch_event(EventTypes.SERVER_ROLE_DELETED,
                                                    server=server,
                                                    role=role)
@@ -340,7 +340,7 @@ class Bot(discord.Client):
         :param before: The role before the update
         :param after: The role after the update
         """
-        if before.id not in self.config["blacklisted_servers"]:
+        if before.id not in self.config.get("blacklisted_servers", []):
             await self.EventManager.dispatch_event(EventTypes.SERVER_ROLE_UPDATED,
                                                    role_before=before,
                                                    role_after=after,
