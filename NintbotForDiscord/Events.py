@@ -3,9 +3,7 @@ from typing import Union, Tuple
 import discord
 
 from .Enums import EventTypes
-
-DiscordUser = Union[discord.User, discord.Member]
-DiscordChannel = Union[discord.Channel, discord.PrivateChannel]
+from .Types import DiscordUser, DiscordTextChannel, DiscordPrivateTextChannel
 
 
 class Event(object):
@@ -24,10 +22,10 @@ class MessageSentEvent(Event):
 
     event_type = EventTypes.MESSAGE_SENT
 
-    def __init__(self, message: discord.Message, author: DiscordUser, channel: DiscordChannel):
+    def __init__(self, message: discord.Message, author: DiscordUser, channel: DiscordTextChannel):
         self.message = message  # type: discord.Message
         self.author = author  # type: DiscordUser
-        self.channel = channel  # type: DiscordChannel
+        self.channel = channel  # type: DiscordTextChannel
         self.content = message.content  # type: str
 
     @staticmethod
@@ -40,12 +38,12 @@ class ChannelMessageSentEvent(MessageSentEvent):
     event_type = EventTypes.CHANNEL_MESSAGE_SENT
 
     # noinspection PyMissingConstructor
-    def __init__(self, message: discord.Message, author: discord.Member, channel: discord.Channel):
+    def __init__(self, message: discord.Message, author: discord.Member, channel: discord.TextChannel):
         self.message = message  # type: discord.Message
         self.author = author  # type: discord.Member
-        self.channel = channel  # type: discord.Channel
+        self.channel = channel  # type: discord.TextChannel
         self.content = message.content  # type: str
-        self.server = channel.server  # type: discord.Server
+        self.server = channel.guild  # type: discord.Guild
 
     @staticmethod
     def from_dict(args: dict) -> "ChannelMessageSentEvent":
@@ -57,10 +55,10 @@ class PrivateMessageSentEvent(MessageSentEvent):
     event_type = EventTypes.PRIVATE_MESSAGE_SENT
 
     # noinspection PyMissingConstructor
-    def __init__(self, message: discord.Message, author: discord.User, channel: discord.PrivateChannel):
+    def __init__(self, message: discord.Message, author: discord.User, channel: DiscordPrivateTextChannel):
         self.message = message  # type: discord.Message
         self.author = author  # type: discord.User
-        self.channel = channel  # type: discord.PrivateChannel
+        self.channel = channel  # type: DiscordPrivateTextChannel
         self.content = message.content  # type: str
 
     @staticmethod
@@ -72,10 +70,10 @@ class MessageDeletedEvent(Event):
 
     event_type = EventTypes.MESSAGE_DELETED
 
-    def __init__(self, message: discord.Message, author: DiscordUser, channel: DiscordChannel):
+    def __init__(self, message: discord.Message, author: DiscordUser, channel: DiscordTextChannel):
         self.message = message  # type: discord.Message
         self.author = author  # type: DiscordUser
-        self.channel = channel  # type: DiscordChannel
+        self.channel = channel  # type: DiscordTextChannel
         self.content = message.content  # type: str
 
     @staticmethod
@@ -88,11 +86,11 @@ class ChannelMessageDeletedEvent(MessageDeletedEvent):
     event_type = EventTypes.CHANNEL_MESSAGE_DELETED
 
     # noinspection PyMissingConstructor
-    def __init__(self, message: discord.Message, author: discord.Member, channel: discord.Channel):
+    def __init__(self, message: discord.Message, author: discord.Member, channel: discord.TextChannel):
         self.message = message  # type: discord.Message
         self.author = author  # type: discord.Member
-        self.channel = channel  # type: discord.Channel
-        self.server = channel.server  # type: discord.Server
+        self.channel = channel  # type: discord.TextChannel
+        self.server = channel.guild  # type: discord.Guild
         self.content = message.content  # type: str
 
     @staticmethod
@@ -105,10 +103,10 @@ class PrivateMessageDeletedEvent(MessageDeletedEvent):
     event_type = EventTypes.PRIVATE_MESSAGE_DELETED
 
     # noinspection PyMissingConstructor
-    def __init__(self, message: discord.Message, author: discord.User, channel: discord.PrivateChannel):
+    def __init__(self, message: discord.Message, author: discord.User, channel: DiscordPrivateTextChannel):
         self.message = message  # type: discord.Message
         self.author = author  # type: discord.User
-        self.channel = channel  # type: discord.PrivateChannel
+        self.channel = channel  # type: DiscordPrivateTextChannel
         self.content = message.content  # type: str
 
     @staticmethod
@@ -120,11 +118,11 @@ class MessageEditedEvent(Event):
 
     event_type = EventTypes.MESSAGE_EDITED
 
-    def __init__(self, before: discord.Message, after: discord.Message, author: DiscordUser, channel: DiscordChannel):
+    def __init__(self, before: discord.Message, after: discord.Message, author: DiscordUser, channel: DiscordTextChannel):
         self.before = before  # type: discord.Message
         self.after = after  # type: discord.Message
         self.author = author  # type: DiscordUser
-        self.channel = channel  # type: DiscordChannel
+        self.channel = channel  # type: DiscordTextChannel
         self.content_before = before.content  # type: str
         self.content_after = after.content  # type: str
 
@@ -138,14 +136,14 @@ class ChannelMessageEditedEvent(MessageEditedEvent):
     event_type = EventTypes.CHANNEL_MESSAGE_EDITED
 
     # noinspection PyMissingConstructor
-    def __init__(self, before: discord.Message, after: discord.Message, author: discord.Member, channel: discord.Channel):
+    def __init__(self, before: discord.Message, after: discord.Message, author: discord.Member, channel: discord.TextChannel):
         self.before = before  # type: discord.Message
         self.after = after  # type: discord.Message
         self.author = author  # type: discord.Member
-        self.channel = channel  # type: discord.Channel
+        self.channel = channel  # type: discord.TextChannel
         self.content_before = before.content  # type: str
         self.content_after = after.content  # type: str
-        self.server = channel.server  # type: discord.Server
+        self.server = channel.guild  # type: discord.Guild
 
     @staticmethod
     def from_dict(args: dict) -> "ChannelMessageEditedEvent":
@@ -157,11 +155,11 @@ class PrivateMessageEditedEvent(MessageEditedEvent):
     event_type = EventTypes.PRIVATE_MESSAGE_EDITED
 
     # noinspection PyMissingConstructor
-    def __init__(self, before: discord.Message, after: discord.Message, author: discord.User, channel: discord.PrivateChannel):
+    def __init__(self, before: discord.Message, after: discord.Message, author: discord.User, channel: DiscordPrivateTextChannel):
         self.before = before  # type: discord.Message
         self.after = after  # type: discord.Message
         self.author = author  # type: discord.User
-        self.channel = channel  # type: discord.PrivateChannel
+        self.channel = channel  # type: DiscordPrivateTextChannel
         self.content_before = before.content  # type: str
         self.content_after = after.content  # type: str
 
@@ -174,10 +172,10 @@ class CommandSentEvent(Event):
 
     event_type = EventTypes.COMMAND_SENT
 
-    def __init__(self, message: discord.Message, author: DiscordUser, channel: DiscordChannel, command: str, args: Tuple[str, ...]):
+    def __init__(self, message: discord.Message, author: DiscordUser, channel: DiscordTextChannel, command: str, args: Tuple[str, ...]):
         self.message = message  # type: discord.Message
         self.author = author  # type: DiscordUser
-        self.channel = channel  # type: DiscordChannel
+        self.channel = channel  # type: DiscordTextChannel
         self.content = message.content  # type: str
         self.command = command  # type: str
         self.args = args  # type: Tuple[str, ...]

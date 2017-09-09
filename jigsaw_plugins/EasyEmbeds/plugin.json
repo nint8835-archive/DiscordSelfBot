@@ -1,0 +1,9 @@
+{
+    "name": "Easy Embeds",
+    "version": "1.0.0",
+    "main_class": "EasyEmbeds",
+    "developer": "nint8835",
+    "dependencies": [
+      "UserCore"
+    ]
+  }
