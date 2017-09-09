@@ -47,7 +47,7 @@ class BaseTools(UserCorePlugin):
         embed.add_field(name=code, value=result)
         embed.colour = colour
 
-        await self.bot.send_message(args["channel"], embed=embed)
+        await args["channel"].send(embed=embed)
 
     async def command_exec(self, args: dict):
         code = args["content"].split(self.bot.config["command_prefix"] + "exec ")[1]
@@ -66,13 +66,13 @@ class BaseTools(UserCorePlugin):
         embed.add_field(name=code, value=result)
         embed.colour = colour
 
-        await self.bot.send_message(args["channel"], embed=embed)
+        await args["channel"].send(embed=embed)
 
     async def command_setgame(self, args: dict):
         game = args["unsplit_args"].split("setgame ")[1]
         await self.bot.change_presence(game=Game(name=game))
 
     async def command_ping(self, args: CommandSentEvent):
-        time_diff = datetime.datetime.utcnow().timestamp() - args.message.timestamp.timestamp()
+        time_diff = datetime.datetime.utcnow().timestamp() - args.message.created_at.timestamp()
 
-        await self.bot.send_message(args.channel, f"Pong! I processed this command {time_diff} seconds after it was sent!")
+        await args.channel.send(f"Pong! I processed this command {time_diff} seconds after it was sent!")

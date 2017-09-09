@@ -18,7 +18,7 @@ class UserCorePlugin(BasePlugin):
         except:
             traceback.print_exc(5)
 
-        await self.bot.delete_message(args["message"])
+        await args["message"].delete()
 
     def register_user_command(self, name: str, description: str, method: classmethod, *args, **kwargs):
         self._internal_handlers[name] = method

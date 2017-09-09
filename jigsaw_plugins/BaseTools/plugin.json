@@ -1,6 +1,6 @@
 {
   "name": "Base Tools",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "main_class": "BaseTools",
   "developer": "nint8835",
   "dependencies": [
