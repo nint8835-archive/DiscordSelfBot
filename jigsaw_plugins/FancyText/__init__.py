@@ -16,7 +16,7 @@ class FancyText(UserCorePlugin):
         text = args.args
         processed_text = self.figlet.renderText(text)
 
-        await self.bot.send_message(args.channel, f"```\n{processed_text}```")
+        await args.channel.send(f"```\n{processed_text}```")
 
     async def command_customfancy(self, args: CommandSentEvent):
         text = args.args[0]
@@ -24,4 +24,4 @@ class FancyText(UserCorePlugin):
         figlet = Figlet(font)
         processed_text = figlet.renderText(text)
 
-        await self.bot.send_message(args.channel, f"```\n{processed_text}```")
+        await args.channel.send(f"```\n{processed_text}```")

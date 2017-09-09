@@ -24,4 +24,4 @@ class EasyEmbeds(UserCorePlugin):
 
         embed.colour = Colour(int(obj.get("colour", "673AB7"), 16))
 
-        await self.bot.send_message(args["channel"], embed=embed)
+        await args["channel"].send(embed=embed)
